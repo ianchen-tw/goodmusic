@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_07_140050) do
+ActiveRecord::Schema.define(version: 2018_07_09_165632) do
 
   create_table "Articles", force: :cascade do |t|
     t.string "title", limit: 30
@@ -19,12 +19,46 @@ ActiveRecord::Schema.define(version: 2018_07_07_140050) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "atircle_details", force: :cascade do |t|
+  create_table "albums", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "article_details", force: :cascade do |t|
     t.text "content"
     t.integer "article_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["article_id"], name: "index_atircle_details_on_article_id"
+    t.index ["article_id"], name: "index_article_details_on_article_id"
+  end
+
+  create_table "artists", force: :cascade do |t|
+    t.string "name"
+    t.string "nationality"
+    t.date "born_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "music_genres", force: :cascade do |t|
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "songs", force: :cascade do |t|
+    t.string "name"
+    t.integer "album_id"
+    t.integer "artist_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
