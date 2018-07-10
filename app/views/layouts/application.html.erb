@@ -5,18 +5,17 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
   </head>
   
   <body>
-    <div class='container'>
-      <nav clas='navbar navbar-dark bg-dark'>
-        <ul class='navbar-nav'>
-          <a class='nav-link dropdown-toggle' href= <%= articles_path %> > 主頁</a>
-        </ul>
-      </nav>
-    </div>
+    <div class='container-fulid'>
+      
+    <%= render "common/navbar"%>
     <%= yield %>
+    </div>
   </body>
 </html>
