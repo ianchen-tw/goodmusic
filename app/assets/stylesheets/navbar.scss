@@ -1,0 +1,6 @@
+.nav-link{
+    &:hover{
+        color: white;
+    }
+    transition: all 0.15s;
+}
