@@ -13,3 +13,46 @@
  
  */
  @import "bootstrap";
+ 
+
+ body{
+    background-color:#E4E6E6;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-weight: 300;
+ }
+
+ hr{
+    background-color:#4F5D75;
+     width:90%;
+     height: 1px;
+     border: 0 none;
+ }
+
+.post-intro{
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    color: #2D3142;
+    .tag{
+        letter-spacing: 2px;
+        color: #2D3142;
+        font-size: 0.9rem;
+    }
+
+    .title{
+        font-size: 1.15rem; 
+        .name{
+            font-weight:bold;
+        }
+        .artist{
+            color: #707070;
+        }
+    }
+
+    .description{
+    }
+    .a{
+        color: blue;
+    }
+}
+
