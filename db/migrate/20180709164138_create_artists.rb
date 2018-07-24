@@ -5,6 +5,11 @@ class CreateArtists < ActiveRecord::Migration[5.2]
       t.string :nationality
       t.date :born_date
 
+      t.belongs_to :song
+      t.belongs_to :album
+      t.belongs_to :category
+      t.belongs_to :music_genre
+      
       t.timestamps
     end
   end

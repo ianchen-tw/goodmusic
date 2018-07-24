@@ -5,9 +5,21 @@
     <%= f.label :category, "文章分類 "%>
     <%= f.text_field :category %> <br/>
 
+    <% if article.image.attached? %>
+        <%= image_tag article.image.variant(resize: "400x400") %>
+    <% end%>
     <%= f.label :image %>
     <%= f.file_field :image %><br/>
 
+    <%= f.label :author, "作者" %>
+    <%= f.text_field :author %> <br/>
+
+    <%= f.label :recommender, "推薦者" %>
+    <%= f.text_field :recommender %> <br/>
+    
+    <%= f.label :url, "試聽連結" %>
+    <%= f.text_field :url %> <br/>
+    
     <%= f.label :brief, "介紹" %>
     <%= f.text_area :brief, size:"100x10" %> <br/>
     

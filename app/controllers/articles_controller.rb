@@ -51,7 +51,10 @@ class ArticlesController < ApplicationController
 
     def article_params
         # 必須擷取限制長度的字串當作簡短介紹
-        para = params.require(:article).permit(:title,:category, :brief, :image)
+        para = params.require(:article).permit(
+            :title,:category,:brief,:author,:recommender,
+            :image, :url
+        )
         content = para[:brief]
         if content.length <30
             brief=content

@@ -10,27 +10,47 @@
 <table>
   <thead>
     <tr>
-      <td>title</td>
-      <td>category</td>
       <td>operations</td>
+      <td>縮圖</td>
+      <td>title</td>
+      <td>撰文小編</td>
+      <td>推薦人</td>
+      <td>試聽連結</td>
+      <td>文章分類</td>
+      
     <tr>
   </thead>
   <tbody>
     <% @articles.each do |t| %>
     <tr>
-      <% if t.image.attached? %>
-        <td><%= image_tag(t.image.variant(resize:"200x200")) %> </td>
-      <% else %>
-      <% end %>
-
-      <td><%= t.title%></td>
-      <td><%= t.category%></td>
       <td>
         <div class='btn-group'>
           <%= link_to "編輯", edit_article_path(t), class:'btn btn-primary'%>
           <%= link_to "刪除", article_path(t), method:"delete", data:{ confirm:"確認刪除"}, class:'btn btn-danger'%>
         </div>
       </td>
+      <% if t.image.attached? %>
+        <td><%= image_tag(t.image.variant(resize:"200x200")) %> </td>
+      <% else %>
+        <td>無</td>
+      <% end %>
+
+      <td><%= t.title%></td>
+      <td><%= t.author %></td>
+
+      <% if t.recommender != "" %>
+        <td><%= t.recommender%></td>
+      <% else %>
+        <td>無</td>
+      <% end %>
+
+      <% if t.url != "" %>
+        <td><%= t.url%></td>
+      <% else %>
+        <td>無</td>
+      <% end %>
+
+      <td><%= t.category%></td>
     </tr>
     <% end %>
   </tbody>
