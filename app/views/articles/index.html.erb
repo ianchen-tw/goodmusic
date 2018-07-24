@@ -18,6 +18,11 @@
   <tbody>
     <% @articles.each do |t| %>
     <tr>
+      <% if t.image.attached? %>
+        <td><%= image_tag(t.image.variant(resize:"200x200")) %> </td>
+      <% else %>
+      <% end %>
+
       <td><%= t.title%></td>
       <td><%= t.category%></td>
       <td>

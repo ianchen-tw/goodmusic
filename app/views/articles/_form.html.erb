@@ -5,8 +5,11 @@
     <%= f.label :category, "文章分類 "%>
     <%= f.text_field :category %> <br/>
 
+    <%= f.label :image %>
+    <%= f.file_field :image %><br/>
+
     <%= f.label :brief, "介紹" %>
-    <%= f.text_field :brief %> <br/>
+    <%= f.text_area :brief, size:"100x10" %> <br/>
     
     <%= f.submit %>
 <% end %>

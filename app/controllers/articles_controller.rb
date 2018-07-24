@@ -10,8 +10,13 @@ class ArticlesController < ApplicationController
 
     def update
         @article = Article.find_by( id: params[:id])
-
-        if @article.update( article_params )
+        para = article_params
+        if @article.update( para.except(:content) )
+            if !@article.article_detail.present?
+                @article.create_article_detail({content: para[:content]})
+            else
+                @article.article_detail[:content]= para[:content]
+            end
             redirect_to articles_path, notice: "資料更新成功!"
         else
             render :edit
@@ -31,31 +36,30 @@ class ArticlesController < ApplicationController
 
     def create #接住新增的資料
         para = article_params
-        content = para[:brief]
-
-        if content.length <30
-            brief=content
-        else
-            brief=content[0...30]
-        end
-        
-        para[:brief] = brief
-        
-        @article = Article.new(para)
+        @article = Article.new(para.except(:content))
         if @article.save
+            @article.create_article_detail({content: para[:content]})
             redirect_to articles_path, notice: "新增文章成功!"
         else
             render :new
         end
 
-        @article.create_article_detail({content: content})
-
     end
 
     private
 
+
     def article_params
-        params.require(:article).permit(:title,:category, :brief)
+        # 必須擷取限制長度的字串當作簡短介紹
+        para = params.require(:article).permit(:title,:category, :brief, :image)
+        content = para[:brief]
+        if content.length <30
+            brief=content
+        else
+            brief=content[0...30]
+        end
+        para[:brief] = brief
+        return para
     end
 
 end
