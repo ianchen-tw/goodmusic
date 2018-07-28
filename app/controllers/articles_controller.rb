@@ -15,12 +15,7 @@ class ArticlesController < ApplicationController
     def update
         @article = Article.find_by( id: params[:id])
         para = article_params
-        if @article.update( para.except(:content) )
-            if !@article.article_detail.present?
-                @article.create_article_detail({content: para[:content]})
-            else
-                @article.article_detail[:content]= para[:content]
-            end
+        if @article.update_with_content()
             redirect_to articles_path, notice: "資料更新成功!"
         else
             render :edit
@@ -38,11 +33,15 @@ class ArticlesController < ApplicationController
         @article = Article.new
     end
 
-    def create #接住新增的資料
+    def create
+        #接住新增的資料
+        # 未來希望能夠讓使用者設定是否使用客製化文字當作文章的簡短敘述
         para = article_params
-        @article = Article.new(para.except(:content))
+        content = para[:brief]
+        para[:brief] = content.length<30? content : content[0..30] 
+        @article = Article.new(para)
         if @article.save
-            @article.create_article_detail({content: para[:content]})
+            @article.create_article_detail({content: content})
             redirect_to articles_path, notice: "新增文章成功!"
         else
             render :new
@@ -57,15 +56,8 @@ class ArticlesController < ApplicationController
         # 必須擷取限制長度的字串當作簡短介紹
         para = params.require(:article).permit(
             :title,:category,:brief,:author,:recommender,
-            :image, :url
+            :image, :url,
         )
-        content = para[:brief]
-        if content.length <30
-            brief=content
-        else
-            brief=content[0...30]
-        end
-        para[:brief] = brief
         return para
     end
 
