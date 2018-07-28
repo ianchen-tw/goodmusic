@@ -12,13 +12,15 @@
     <%= f.label :article_type_id, "分享類別" %>
     <%= f.collection_select :article_type_id, ArticleType.all, :id, :name %> <br/>
 
+    <%= f.label :artist, "創作者" %>
+    <%= f.text_field :artist %> <br/>
+
     <%= f.label :category, "文章分類 "%>
     <%= f.text_field :category %> <br/>
-
-    <%= f.label :recommender, "推薦人" %>
-    <%= f.text_field :recommender %> <br/>
-
     
+    <%= f.label :publish_at, "發佈時間" %>
+    <%= f.date_select(:publish_at)%> <br/>
+
     <% if article.image.attached? %>
         <%= image_tag article.image.variant(resize: "400x400") %>
     <% end%>

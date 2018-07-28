@@ -15,7 +15,7 @@ class ArticlesController < ApplicationController
     def update
         @article = Article.find_by( id: params[:id])
         para = article_params
-        if @article.update_with_content()
+        if @article.update_with_content(para)
             redirect_to articles_path, notice: "資料更新成功!"
         else
             render :edit
@@ -24,9 +24,13 @@ class ArticlesController < ApplicationController
 
     def destroy
         @article = Article.find_by( id: params[:id])
-        @article.destroy if  @article
-        redirect_to articles_path, notice: "文章#{@article.title}已刪除"
-
+        if !@article.nil?
+            @article.destroy
+            redirect_to articles_path, notice: "文章#{@article.title}已刪除"
+        else
+            redirect_to articles_path, notice: "不存在的文章, id=#{params[:id]}"
+        end 
+        
     end
 
     def new #新增用的頁面
@@ -44,19 +48,19 @@ class ArticlesController < ApplicationController
             @article.create_article_detail({content: content})
             redirect_to articles_path, notice: "新增文章成功!"
         else
-            render :new
+            render :new, notice: "新增失敗"
         end
 
     end
 
     private
 
-
     def article_params
         # 必須擷取限制長度的字串當作簡短介紹
         para = params.require(:article).permit(
             :title,:category,:brief,:author,:recommender,
-            :image, :url,
+            :article_type_id,:publish_at,
+            :image, :url, :artist,
         )
         return para
     end

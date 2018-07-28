@@ -1,5 +1,5 @@
 class Article < ApplicationRecord
-    has_one :article_detail
+    has_one :article_detail, :dependent => :destroy
     belongs_to :article_type
     has_one_attached :image
 
@@ -7,13 +7,14 @@ class Article < ApplicationRecord
         # 擷取限制長度的字串當作簡短介紹
         # 當 brief不為nil的時候採用客製化的簡介來當作文章介紹
         # length指定剪下預設的文章簡介長度
-        content = self.brief 
-        if opt[:brief].nil?
-            raise Exception.new('length cannot be less or equal to 0') if length <=0;
-            self.brief = self.brief[0..opt[:length]]
+        content = param[:brief]
+        if not opt[:brief].nil?
+            raise Exception.new('length cannot be less or equal to 0') if opt[:length] <=0;
+            param[:brief] = opt[:brief[0..opt[:length]]]
         else
-            self.brief = opt[:brief]
+            param[:brief] = content.length<30? content : content[0..30] 
         end
+
 
         if self.update( param.except(:content) )
             if !self.article_detail.present?

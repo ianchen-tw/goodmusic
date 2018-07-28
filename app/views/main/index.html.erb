@@ -12,6 +12,48 @@
 
 
 
+
+
+<% @articles.each do |article|%>
+    <div class="post-intro d-flex flex-row">
+        <div class="col-3 pl-0 pr-0 img-block">
+            <%= image_tag article.image.variant(resize: "160x160") %>
+        </div>
+        <div class="col-9">
+            <div class="tag text-left text-nowrap">
+                <% if not article.publish_at.nil? %>
+                    <% ptime = article.publish_at.strftime("%b.%e") %>
+                <% else %>
+                    <% ptime = "Mar 25"%>
+                <% end %>
+                <%= ptime %> | <%= article.article_type.name %>
+            </div>
+
+            <div class="title text-left text-nowrap">
+                <span class="name"><%= article.title %></span>
+                <span class="artist">- <%= article.artist%></span>
+            </div>
+            
+            
+            <div class="text-left pb-1">
+                <% if not article.recommender.empty? %>
+                    推薦人: <%= article.recommender%>
+                <% end %>
+                <% if not article.author.empty? %>
+                    撰文小編: <%= article.author %>
+                <% end %>
+            </div>
+
+            <div class="description text-left">
+                <%= article.brief %>...
+                <a href="#"> <<閱讀更多>></a>
+            </div>
+        </div>
+    </div>
+<% end %>
+
+<h4>以下為寫死輸出</h4>
+
 <div class="post-intro d-flex flex-row">
     <div class="col-3 pl-0 pr-0 img-block">
         <%= image_tag "album_cover.png", width:"160" %>
