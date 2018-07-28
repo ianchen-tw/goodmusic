@@ -1,23 +1,37 @@
-<%= form_for(article) do |f| %>
+<% if false %>
+#註解欄
+
+接收變數:
+    article: 
+<% end %>
+
+<%= form_for(article) do |f|  %>
     <%= f.label :title, "標題"%>
     <%= f.text_field :title %> <br/>
+    
+    <%= f.label :article_type_id, "分享類別" %>
+    <%= f.collection_select :article_type_id, ArticleType.all, :id, :name %> <br/>
 
     <%= f.label :category, "文章分類 "%>
     <%= f.text_field :category %> <br/>
 
+    <%= f.label :recommender, "推薦人" %>
+    <%= f.text_field :recommender %> <br/>
+
+    
     <% if article.image.attached? %>
         <%= image_tag article.image.variant(resize: "400x400") %>
     <% end%>
-    <%= f.label :image %>
+    <%= f.label :image, "縮圖" %>
     <%= f.file_field :image %><br/>
 
-    <%= f.label :author, "作者" %>
+    <%= f.label :author, "小編名稱" %>
     <%= f.text_field :author %> <br/>
 
     <%= f.label :recommender, "推薦者" %>
     <%= f.text_field :recommender %> <br/>
     
-    <%= f.label :url, "試聽連結" %>
+    <%= f.label :url, "相關連結" %>
     <%= f.text_field :url %> <br/>
     
     <%= f.label :brief, "介紹" %>
