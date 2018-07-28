@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_24_164640) do
+ActiveRecord::Schema.define(version: 2018_07_28_011157) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -55,6 +55,10 @@ ActiveRecord::Schema.define(version: 2018_07_24_164640) do
     t.index ["article_id"], name: "index_article_details_on_article_id"
   end
 
+  create_table "article_types", force: :cascade do |t|
+    t.string "name"
+  end
+
   create_table "articles", force: :cascade do |t|
     t.string "title", limit: 30
     t.string "category", limit: 15
@@ -64,6 +68,8 @@ ActiveRecord::Schema.define(version: 2018_07_24_164640) do
     t.string "author", null: false
     t.string "recommender"
     t.text "url"
+    t.integer "article_type_id"
+    t.index ["article_type_id"], name: "index_articles_on_article_type_id"
   end
 
   create_table "artists", force: :cascade do |t|
@@ -83,7 +89,7 @@ ActiveRecord::Schema.define(version: 2018_07_24_164640) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string "value"
+    t.string "name"
     t.integer "album_id"
     t.integer "songs_id"
     t.integer "artists_id"
@@ -95,7 +101,7 @@ ActiveRecord::Schema.define(version: 2018_07_24_164640) do
   end
 
   create_table "music_genres", force: :cascade do |t|
-    t.string "value"
+    t.string "name"
     t.integer "album_id"
     t.integer "song_id"
     t.integer "artist_id"

@@ -8,6 +8,10 @@ class ArticlesController < ApplicationController
         @article = Article.find_by( id: params[:id])
     end
 
+    def show
+        @article = Article.find_by( id: params[:id])
+    end
+
     def update
         @article = Article.find_by( id: params[:id])
         para = article_params
